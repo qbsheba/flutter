@@ -1,0 +1,86 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const EMSApp());
+}
+
+class EMSApp extends StatelessWidget {
+  const EMSApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'EMS App',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primarySwatch: Colors.red,
+        scaffoldBackgroundColor: Colors.white,
+      ),
+      home: const HomePage(),
+    );
+  }
+}
+
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("EMS Dashboard"),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: GridView.count(
+            crossAxisCount: 2,
+            crossAxisSpacing: 20,
+            mainAxisSpacing: 20,
+            children: const [
+              CircleOption(title: "On Scene Extrication", icon: Icons.car_crash),
+              CircleOption(title: "Resources", icon: Icons.folder),
+              CircleOption(title: "EMS Training", icon: Icons.school),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class CircleOption extends StatelessWidget {
+  final String title;
+  final IconData icon;
+
+  const CircleOption({super.key, required this.title, required this.icon});
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        // TODO: Add navigation logic later
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("$title tapped")),
+        );
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          CircleAvatar(
+            radius: 50,
+            backgroundColor: Colors.red.shade400,
+            child: Icon(icon, color: Colors.white, size: 40),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+    );
+  }
+}
